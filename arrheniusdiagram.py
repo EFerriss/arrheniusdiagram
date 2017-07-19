@@ -137,8 +137,8 @@ layout = layout([
 curdoc().add_root(layout)
 curdoc().title = "Arrhenius Diagram"
 
-script, div = components(plot)
-return render_template('arrheniusdiagram.html', script=script, div=div)
+# script, div = components(plot)
+# return render_template('arrheniusdiagram.html', script=script, div=div)
 
 if __name__ == '__main__':
     app.run(port=33507)

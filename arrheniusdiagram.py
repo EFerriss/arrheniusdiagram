@@ -15,25 +15,19 @@ from bokeh.models.widgets import RadioButtonGroup, RangeSlider
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.embed import file_html
+from flask import render_template
 
+# The data
 olivine = pd.read_csv('literaturevalues.csv')
 olivine.fillna(0, inplace=True) # replace missing values with zero
 olivine.loc[olivine['orientation'] == 'u', 'orientation'] = 'not oriented'
 olivine.loc[olivine['name'] == 0, 'name'] = ''
 olivine.loc[olivine['fO2Buffer'] == 0, 'fO2Buffer'] = ''
-
 olivine["color"] = np.where(olivine["Author"] == 'Ferriss', "orange", "grey")
 olivine.loc[olivine["name"] == 'kiki', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "green"
 olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.25, 0.25)
 
-hover = HoverTool(tooltips=[
-        ("||", "@orient"),
-        ("Fe", "Fo# @fonum{0.0} @buffer"),
-        ("Heat", "@hours hrs at @celsius C "),
-        ("Type", "@exper, @mech"),
-        ("Source", "@author @year @name"),
-])
 
 source = ColumnDataSource(data=dict(
         x = [],
@@ -52,6 +46,16 @@ source = ColumnDataSource(data=dict(
         name = []
     ))
 
+# The tools
+hover = HoverTool(tooltips=[
+        ("||", "@orient"),
+        ("Fe", "Fo# @fonum{0.0} @buffer"),
+        ("Heat", "@hours hrs at @celsius C "),
+        ("Type", "@exper, @mech"),
+        ("Source", "@author @year @name"),
+])
+
+# The figure
 left, right, bottom, top = 6, 10, -16, -8
 p = figure(plot_width=500, plot_height=500, 
            tools=[BoxZoomTool(), hover, PanTool(), SaveTool(), ResetTool()],
@@ -61,13 +65,15 @@ p.circle('x', 'y', size=10, source=source, color='color', alpha='alpha')
 p.xaxis.axis_label = "1e4 / Temperature (K)"
 p.yaxis.axis_label = "log10 Diffusivity (m2/s)"
 
-# widgets
+# The widgets
 widget_orient = RadioButtonGroup(
         labels=['|| a', '|| b', '|| c', 'not oriented', 'all'], active=4)
 widget_mech = RadioButtonGroup(
         labels=['bulk H (pp)', 'bulk H (pv)', '[Si]', '[Ti]', '[tri]', '[Mg]', 'all'], active=6)
 widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
 
+
+# What to plot
 def select_data():
     selected = olivine
     orient_val = widget_orient.active
@@ -90,7 +96,8 @@ def select_data():
         
     return selected
 
-
+	
+# Selecting data to plot
 def update():
     df = select_data()
     
@@ -111,6 +118,7 @@ def update():
         name = df['name'].values
     )
 
+# Initial state: show all data
 update()
 
 # set up callbacks
@@ -129,26 +137,8 @@ layout = layout([
 curdoc().add_root(layout)
 curdoc().title = "Arrhenius Diagram"
 
-output_file('ArrheniusDiagram.html', title='Bokeh Plot', 
-            mode='cdn', root_dir=None)
-save(layout)
-#html = file_html(p, resources=(CDN('inline'), CDN),
-#                 title="Arrhenius") # CDN,
-                 
-#html_file = olivine_path = ''.join((pynams.thisfolder, 
-#                                    'diffusion\\ArrheniusDiagram.html'))
-#with open('Arrhenius.html', 'w') as file:
-#   file.write(html)
-# %% Mf additions
-#with open("Mark.html", 'w') as mf:
-#    mf.write(html)
-#
+script, div = components(plot)
+return render_template('arrheniusdiagram.html', script=script, div=div)
 
-#    
-#layout = row(
-#    p,
-#    widgetbox(amp_slider, freq_slider, phase_slider, offset_slider),
-#)
-#output_file("mf4.html", title="slider.py example")
-#
-#show(l)
+if __name__ == '__main__':
+    app.run(port=33507)

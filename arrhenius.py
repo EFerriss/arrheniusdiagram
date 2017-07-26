@@ -148,4 +148,4 @@ def index():
 	return render_template('arrheniusdiagram.html', script=script, div=div)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(port=33507)

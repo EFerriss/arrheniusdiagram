@@ -1,1 +1,1 @@
-web: gunicorn arrhenius.py
+web: gunicorn arrhenius:app

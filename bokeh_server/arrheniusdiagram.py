@@ -3,7 +3,12 @@
 Created on Fri Jun 16 16:42:23 2017
 
 @author: Elizabeth Ferriss
+
+To run and test alone on local computer:
+On command line: bokeh serve arreniusdiagram.py
+Navigate to: http://localhost:5006/arrheniusdiagram
 """
+
 from bokeh.plotting import figure, output_file, show, ColumnDataSource, save
 from bokeh.layouts import layout, widgetbox
 from bokeh.models import HoverTool, Range1d, BoxZoomTool, SaveTool, ResetTool
@@ -14,8 +19,9 @@ import numpy as np
 from bokeh.models.widgets import RadioButtonGroup, RangeSlider
 from bokeh.resources import CDN
 from bokeh.embed import components
+from bokeh.resources import INLINE
+from bokeh.util.string import encode_utf8
 from bokeh.embed import file_html
-from flask import render_template
 
 # The data
 olivine = pd.read_csv('literaturevalues.csv')
@@ -27,7 +33,6 @@ olivine["color"] = np.where(olivine["Author"] == 'Ferriss', "orange", "grey")
 olivine.loc[olivine["name"] == 'kiki', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "green"
 olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.25, 0.25)
-
 
 source = ColumnDataSource(data=dict(
         x = [],
@@ -136,9 +141,3 @@ layout = layout([
 
 curdoc().add_root(layout)
 curdoc().title = "Arrhenius Diagram"
-
-# script, div = components(plot)
-# return render_template('arrheniusdiagram.html', script=script, div=div)
-
-if __name__ == '__main__':
-    app.run(port=33507)

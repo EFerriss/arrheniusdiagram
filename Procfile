@@ -1,2 +1,2 @@
-web: gunicorn arrhenius:app
-heroku config:add BUILDPACK_URL=https://github.com/kennethreitz/conda-buildpack.git
+web: bokeh serve --port=$PORT --host=staging-btac-web-plots --host=btac-web-plots --use-xheaders 
+avyview --args -l info --start-year 2016

@@ -134,7 +134,7 @@ def index():
 
 	sizing_mode = 'fixed' 
 	inputs = widgetbox(*controls, sizing_mode=sizing_mode)
-	curdoc().add_root(row(inputs, p, width=800))
+	# curdoc().add_root(row(inputs, p, width=800))
 	# layout = layout([
 				# [inputs, p]
 				# ], sizing_mode=sizing_mode)

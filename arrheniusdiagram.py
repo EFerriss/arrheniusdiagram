@@ -17,13 +17,14 @@ from bokeh.io import curdoc
 import pandas as pd
 import numpy as np
 import os
-import pynams
-from bokeh.models.widgets import (CheckboxGroup,
+#import pynams
+from bokeh.models.widgets import (CheckboxGroup, Toggle,
         RadioButtonGroup, RangeSlider, CheckboxButtonGroup, Button)
 
 
 # The data
-file = os.path.join(pynams.__path__[0], 'diffusion', 'literaturevalues.csv')
+file = 'literaturevalues.csv'
+#file = os.path.join(pynams.__path__[0], 'diffusion', 'literaturevalues.csv')
 olivine = pd.read_csv(file)
 olivine = olivine.dropna(how='all') # ignore empty rows
 olivine.fillna(0, inplace=True) # replace missing values with zero
@@ -31,15 +32,16 @@ olivine.loc[olivine['orientation'] == 'u', 'orientation'] = 'not oriented'
 olivine.loc[olivine['name'] == 0, 'name'] = ''
 olivine.loc[olivine['fO2Buffer'] == 0, 'fO2Buffer'] = ''
 olivine["color"] = np.where(olivine["Author"] == 'Ferriss', "green", "grey")
-olivine.loc[olivine["Author"] == 'Newcombe', "color"] = "blue"
-olivine.loc[olivine["Author"] == 'Portnyagin et al.', "color"] = "red"
-olivine.loc[olivine["Author"] == 'Gaetani et al.', "color"] = "yellow"
-olivine.loc[olivine["Author"] == 'Hauri', "color"] = "black"
-olivine.loc[olivine["Author"] == 'Chen et al.', "color"] = "brown"
+olivine.loc[olivine["Author"] == 'Newcombe et al.', "color"] = "blue"
+#olivine.loc[olivine["Author"] == 'Portnyagin et al.', "color"] = "red"
+#olivine.loc[olivine["Author"] == 'Gaetani et al.', "color"] = "yellow"
+#olivine.loc[olivine["Author"] == 'Hauri', "color"] = "black"
+#olivine.loc[olivine["Author"] == 'Chen et al.', "color"] = "brown"
 olivine.loc[olivine["name"] == 'kiki', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "orange"
-olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.75, 0.75)
+olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.75, 0.25)
 olivine["paper"] = olivine["Author"] + ' ' + olivine["Year"].map(str)
+olivine["percentpp"] = 100. - olivine["percentpv"]
 
 source = ColumnDataSource(data=dict(
         x = [],
@@ -80,7 +82,7 @@ p.xaxis.axis_label = "1e4 / Temperature (K)"
 p.yaxis.axis_label = "log10 Diffusivity (m2/s)"
 #p.toolbar.active_drag = BoxZoomTool()
 
-# pp and pv areas
+# pp and pv area fills
 wD = 1.8    
 leftD = -10.4
 rightD = -12.8
@@ -96,20 +98,18 @@ p.patch([6, 6, 10, 10], [leftD-pvd, leftD+wD-pvd, rightD+wD-pvd, rightD-pvd],
 widget_orient = CheckboxButtonGroup(
         labels=['|| a', '|| b', '|| c', 'not oriented'], active=[0, 1, 2, 3])
 widget_mech = CheckboxButtonGroup(
-        labels=['bulk H "pp"', 'bulk H "pv"', '[Si]', '[Ti]', \
-                '[tri]', '[Mg]'], active=[0, 1])
+        labels=['bulk H', '[Si]', '[Ti]', '[tri]', '[Mg]'], active=[0])
 widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
 widget_exper = CheckboxButtonGroup(
 		labels=['hydration', 'dehydration'], active=[0, 1])
-
+widget_pp = RangeSlider(title='% "pp"', start=0, end=100, 
+                        range=(0, 100))
 papersdf = olivine.groupby(['paper'])
 papers = [paper for paper, group in papersdf]
 widget_papers=CheckboxGroup(labels=papers, active=list(range(len(papers))))
 select_all = Button(label='select all papers', width=100)
 deselect_all = Button(label='deselect all papers', width=100)
-
-widget_max = Button(label='Show max/min estimates')
-
+widget_maxmin = Button(label='show max/min values', width=100)
 
 # What to plot
 def select_data():
@@ -118,17 +118,23 @@ def select_data():
     mech_val = widget_mech.active
     fomax_val = widget_fo.range[1]
     fomin_val = widget_fo.range[0]
+    ppmax_val = widget_pp.range[1]
+    ppmin_val = widget_pp.range[0]
     exper_val = widget_exper.active
     papers_val = widget_papers.active
+    maxmin_val = widget_maxmin.clicks
     
     selected = selected[selected.Fo.values <= fomax_val]
     selected = selected[selected.Fo.values >= fomin_val]
+    
+    selected = selected[selected.percentpp.values <= ppmax_val]
+    selected = selected[selected.percentpp.values >= ppmin_val]
     
     orient_labels = ['a', 'b', 'c', 'not oriented']
     orient_list = [orient_labels[idx] for idx in orient_val]
     selected = selected[selected['orientation'].isin(orient_list)]
 
-    mech_labels = ['pp', 'pv', '[Si]', '[Ti]', '[tri]', '[Mg]']
+    mech_labels = ['bulk', '[Si]', '[Ti]', '[tri]', '[Mg]']
     mech_list = [mech_labels[idx] for idx in mech_val]
     selected = selected[selected['mechanism'].isin(mech_list)]
     
@@ -139,7 +145,13 @@ def select_data():
     for idx, paper in enumerate(papers):
         if idx not in papers_val:
             selected = selected[selected.paper != paper]
-
+            
+    if maxmin_val%2 == 0:
+        widget_maxmin.label = 'show max/min values'
+        selected = selected[selected.maxmin.values == 'no']
+    else:
+        widget_maxmin.label = 'hide max/min values'
+            
     return selected
 
 	
@@ -169,12 +181,13 @@ def update():
 update()
 
 # set up callbacks
-controls = [widget_orient, widget_mech, widget_fo, widget_exper, \
-            deselect_all, select_all, widget_papers]
+controls = [widget_orient, widget_mech, widget_pp, widget_fo, widget_exper, \
+            widget_maxmin, deselect_all, select_all, widget_papers]
 for control in [widget_orient, widget_mech, widget_exper, widget_papers]:
     control.on_change('active', lambda attr, old, new: update())
-widget_fo.on_change('range', lambda attr, old, new: update())
-widget_max.on_click(update())
+for control in [widget_fo, widget_pp]:
+    control.on_change('range', lambda attr, old, new: update())
+widget_maxmin.on_click(update)
 
 
 def select_all_pressed():
@@ -185,6 +198,12 @@ select_all.on_click(select_all_pressed)
 def deselect_all_pressed():
     widget_papers.active = []
 deselect_all.on_click(deselect_all_pressed)
+
+
+#def toggle_handler():
+#    active = str(widget_maxmin.clicks)
+#    widget_maxmin.label = active
+#widget_maxmin.on_click(toggle_handler)
 
 # layout
 sizing_mode = 'fixed' 

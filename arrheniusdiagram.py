@@ -91,8 +91,6 @@ p.patch([6, 6, 10, 10], [leftD, leftD+wD, rightD+wD, rightD],
         alpha=0.075, line_width=0, color='lightcoral')
 p.patch([6, 6, 10, 10], [leftD-pvd, leftD+wD-pvd, rightD+wD-pvd, rightD-pvd], 
         alpha=0.2, line_width=0, color='powderblue')
-#glyph = Text(x="x", y="y", text="text", angle=0.3, text_color="#96deb3")
-#plot.add_glyph(source, glyph)
 
 # The widgets
 widget_orient = CheckboxButtonGroup(
@@ -100,16 +98,17 @@ widget_orient = CheckboxButtonGroup(
 widget_mech = CheckboxButtonGroup(
         labels=['bulk H', '[Si]', '[Ti]', '[tri]', '[Mg]'], active=[0])
 widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
-widget_exper = CheckboxButtonGroup(
-		labels=['hydration', 'dehydration'], active=[0, 1])
-widget_pp = RangeSlider(title='% "pp"', start=0, end=100, 
-                        range=(0, 100))
+widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration'], 
+                                   active=[0, 1])
+widget_pp = RangeSlider(title='% "pp"', start=0, end=100, range=(0, 100))
 papersdf = olivine.groupby(['paper'])
 papers = [paper for paper, group in papersdf]
 widget_papers=CheckboxGroup(labels=papers, active=list(range(len(papers))))
 select_all = Button(label='select all papers', width=100)
 deselect_all = Button(label='deselect all papers', width=100)
 widget_maxmin = Button(label='show max/min values', width=100)
+widget_hours = RangeSlider(title='Duration (hours)', start=0, end=200, 
+                           range=(0, 200), step=1)
 
 # What to plot
 def select_data():
@@ -123,12 +122,17 @@ def select_data():
     exper_val = widget_exper.active
     papers_val = widget_papers.active
     maxmin_val = widget_maxmin.clicks
+    hrmin_val = widget_hours.range[0]
+    hrmax_val = widget_hours.range[1]
     
     selected = selected[selected.Fo.values <= fomax_val]
     selected = selected[selected.Fo.values >= fomin_val]
     
     selected = selected[selected.percentpp.values <= ppmax_val]
     selected = selected[selected.percentpp.values >= ppmin_val]
+    
+    selected = selected[selected.hours.values <= hrmax_val]
+    selected = selected[selected.hours.values >= hrmin_val]
     
     orient_labels = ['a', 'b', 'c', 'not oriented']
     orient_list = [orient_labels[idx] for idx in orient_val]
@@ -181,11 +185,12 @@ def update():
 update()
 
 # set up callbacks
-controls = [widget_orient, widget_mech, widget_pp, widget_fo, widget_exper, \
-            widget_maxmin, deselect_all, select_all, widget_papers]
+controls = [widget_orient, widget_mech, widget_pp, widget_fo, widget_hours, \
+            widget_exper, widget_maxmin, deselect_all, select_all, \
+            widget_papers]
 for control in [widget_orient, widget_mech, widget_exper, widget_papers]:
     control.on_change('active', lambda attr, old, new: update())
-for control in [widget_fo, widget_pp]:
+for control in [widget_fo, widget_pp, widget_hours]:
     control.on_change('range', lambda attr, old, new: update())
 widget_maxmin.on_click(update)
 

@@ -17,13 +17,12 @@ from bokeh.io import curdoc
 import pandas as pd
 import numpy as np
 import os
-#import pynams
 from bokeh.models.widgets import (CheckboxGroup, Toggle,
         RadioButtonGroup, RangeSlider, CheckboxButtonGroup, Button)
 
 
 # The data
-file = 'literaturevalues.csv'
+file = './literaturevalues.csv'
 #file = os.path.join(pynams.__path__[0], 'diffusion', 'literaturevalues.csv')
 olivine = pd.read_csv(file)
 olivine = olivine.dropna(how='all') # ignore empty rows

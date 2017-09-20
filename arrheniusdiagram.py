@@ -79,7 +79,6 @@ p = figure(plot_width=500, plot_height=500,
 p.circle('x', 'y', size=10, source=source, color='color', alpha='alpha')
 p.xaxis.axis_label = "1e4 / Temperature (K)"
 p.yaxis.axis_label = "log10 Diffusivity (m2/s)"
-#p.toolbar.active_drag = BoxZoomTool()
 
 # pp and pv area fills
 wD = 1.8    
@@ -109,7 +108,8 @@ widget_maxmin = Button(label='show max/min values', width=100)
 widget_hours = RangeSlider(title='Duration (hours)', start=0, end=200, 
                            range=(0, 200), step=1)
 
-# What to plot
+
+# What data to plot
 def select_data():
     selected = olivine
     orient_val = widget_orient.active
@@ -202,12 +202,6 @@ select_all.on_click(select_all_pressed)
 def deselect_all_pressed():
     widget_papers.active = []
 deselect_all.on_click(deselect_all_pressed)
-
-
-#def toggle_handler():
-#    active = str(widget_maxmin.clicks)
-#    widget_maxmin.label = active
-#widget_maxmin.on_click(toggle_handler)
 
 # layout
 sizing_mode = 'fixed' 

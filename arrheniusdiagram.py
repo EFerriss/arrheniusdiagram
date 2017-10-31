@@ -12,13 +12,11 @@ Navigate to: http://localhost:5006/arrheniusdiagram
 from bokeh.plotting import figure, ColumnDataSource
 from bokeh.layouts import layout, widgetbox
 from bokeh.models import HoverTool, Range1d, BoxZoomTool, SaveTool, ResetTool
-from bokeh.models import PanTool
 from bokeh.io import curdoc
 import pandas as pd
 import numpy as np
-import os
-from bokeh.models.widgets import (CheckboxGroup, Toggle,
-        RadioButtonGroup, RangeSlider, CheckboxButtonGroup, Button)
+from bokeh.models.widgets import (CheckboxGroup, RangeSlider, 
+                                  CheckboxButtonGroup, Button)
 
 
 # The data
@@ -32,10 +30,6 @@ olivine.loc[olivine['name'] == 0, 'name'] = ''
 olivine.loc[olivine['fO2Buffer'] == 0, 'fO2Buffer'] = ''
 olivine["color"] = np.where(olivine["Author"] == 'Ferriss', "green", "grey")
 olivine.loc[olivine["Author"] == 'Newcombe et al.', "color"] = "blue"
-#olivine.loc[olivine["Author"] == 'Portnyagin et al.', "color"] = "red"
-#olivine.loc[olivine["Author"] == 'Gaetani et al.', "color"] = "yellow"
-#olivine.loc[olivine["Author"] == 'Hauri', "color"] = "black"
-#olivine.loc[olivine["Author"] == 'Chen et al.', "color"] = "brown"
 olivine.loc[olivine["name"] == 'kiki', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "orange"
 olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.75, 0.25)

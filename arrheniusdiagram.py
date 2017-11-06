@@ -4,8 +4,11 @@ Created on Fri Jun 16 16:42:23 2017
 
 @author: Elizabeth Ferriss
 
-To run and test alone on local computer:
-On command line: bokeh serve arreniusdiagram.py
+Code for app on H diffusion in olivine at
+https://arrheniusdiagram.herokuapp.com/arrheniusdiagram
+
+To run the python code on local computer:
+Command line: bokeh serve arreniusdiagram.py
 Navigate to: http://localhost:5006/arrheniusdiagram
 """
 
@@ -18,10 +21,7 @@ import numpy as np
 from bokeh.models.widgets import (CheckboxGroup, RangeSlider, 
                                   CheckboxButtonGroup, Button)
 
-
-# The data
 file = './literaturevalues.csv'
-#file = os.path.join(pynams.__path__[0], 'diffusion', 'literaturevalues.csv')
 olivine = pd.read_csv(file)
 olivine = olivine.dropna(how='all') # ignore empty rows
 olivine.fillna(0, inplace=True) # replace missing values with zero
@@ -74,7 +74,7 @@ p.circle('x', 'y', size=10, source=source, color='color', alpha='alpha')
 p.xaxis.axis_label = "1e4 / Temperature (K)"
 p.yaxis.axis_label = "log10 Diffusivity (m2/s)"
 
-# pp and pv area fills
+# background area fills
 wD = 1.8    
 leftD = -10.4
 rightD = -12.8

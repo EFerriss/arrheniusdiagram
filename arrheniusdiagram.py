@@ -137,7 +137,7 @@ def select_data():
     mech_list = [mech_labels[idx] for idx in mech_val]
     selected = selected[selected['mechanism'].isin(mech_list)]
     
-    exper_labels = ['hydration', 'dehydration', 'D-H exchange']
+    exper_labels = ['hydration', 'dehydration', 'H-D exchange']
     exper_list = [exper_labels[idx] for idx in exper_val]
     selected = selected[selected['Experiment'].isin(exper_list)]
         

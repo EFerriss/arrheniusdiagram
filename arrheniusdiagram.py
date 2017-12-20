@@ -91,7 +91,8 @@ widget_orient = CheckboxButtonGroup(
 widget_mech = CheckboxButtonGroup(
         labels=['bulk H', '[Si]', '[Ti]', '[tri]', '[Mg]'], active=[0])
 widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
-widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration'], 
+widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration', 
+                                           'self-diffusion'], 
                                    active=[0, 1])
 widget_pp = RangeSlider(title='% "pp"', start=0, end=100, range=(0, 100))
 papersdf = olivine.groupby(['paper'])
@@ -136,7 +137,7 @@ def select_data():
     mech_list = [mech_labels[idx] for idx in mech_val]
     selected = selected[selected['mechanism'].isin(mech_list)]
     
-    exper_labels = ['hydration', 'dehydration']
+    exper_labels = ['hydration', 'dehydration', 'D-H exchange']
     exper_list = [exper_labels[idx] for idx in exper_val]
     selected = selected[selected['Experiment'].isin(exper_list)]
         

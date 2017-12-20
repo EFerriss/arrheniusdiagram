@@ -29,13 +29,14 @@ olivine.loc[olivine['orientation'] == 'u', 'orientation'] = 'not oriented'
 olivine.loc[olivine['name'] == 0, 'name'] = ''
 olivine.loc[olivine['fO2Buffer'] == 0, 'fO2Buffer'] = ''
 olivine["color"] = np.where(olivine["Author"] == 'Ferriss', "green", "grey")
-olivine.loc[olivine["Author"] == 'Newcombe et al.', "color"] = "blue"
-olivine.loc[olivine["name"] == 'kiki', "color"] = "purple"
+olivine.loc[olivine["name"] == 'IEMN1KI02', "color"] = "blue"
+olivine.loc[olivine["name"] == 'IEFERJAIC', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "orange"
 olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.75, 0.25)
 olivine["paper"] = olivine["Author"] + ' ' + olivine["Year"].map(str)
 olivine["percentpp"] = 100. - olivine["percentpv"]
 
+#%%
 source = ColumnDataSource(data=dict(
         x = [],
         y = [],
@@ -90,8 +91,7 @@ widget_orient = CheckboxButtonGroup(
 widget_mech = CheckboxButtonGroup(
         labels=['bulk H', '[Si]', '[Ti]', '[tri]', '[Mg]'], active=[0])
 widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
-widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration', 
-                                           'D-H exchange'], 
+widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration'], 
                                    active=[0, 1])
 widget_pp = RangeSlider(title='% "pp"', start=0, end=100, range=(0, 100))
 papersdf = olivine.groupby(['paper'])
@@ -136,7 +136,7 @@ def select_data():
     mech_list = [mech_labels[idx] for idx in mech_val]
     selected = selected[selected['mechanism'].isin(mech_list)]
     
-    exper_labels = ['hydration', 'dehydration', 'D-H exchange']
+    exper_labels = ['hydration', 'dehydration']
     exper_list = [exper_labels[idx] for idx in exper_val]
     selected = selected[selected['Experiment'].isin(exper_list)]
         

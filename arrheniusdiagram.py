@@ -33,6 +33,7 @@ olivine["color"] = np.where(olivine["Author"] == 'Ferriss et al.', "green",
 olivine.loc[olivine["name"] == 'IEMN1KI02', "color"] = "blue"
 olivine.loc[olivine["name"] == 'IEFERJAIC', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "orange"
+olivine.loc[olivine["name"] == 'SC1-2', "color"] = "green"
 olivine["alpha"] = np.where(olivine["Author"] == 'Ferriss', 0.75, 0.25)
 olivine["paper"] = olivine["Author"] + ' ' + olivine["Year"].map(str)
 olivine["percentpp"] = 100. - olivine["percentpv"]

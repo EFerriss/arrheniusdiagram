@@ -28,7 +28,8 @@ olivine.fillna(0, inplace=True) # replace missing values with zero
 olivine.loc[olivine['orientation'] == 'u', 'orientation'] = 'not oriented'
 olivine.loc[olivine['name'] == 0, 'name'] = ''
 olivine.loc[olivine['fO2Buffer'] == 0, 'fO2Buffer'] = ''
-olivine["color"] = np.where(olivine["Author"] == 'Ferriss et al.', "green", "grey")
+olivine["color"] = np.where(olivine["Author"] == 'Ferriss et al.', "green", 
+       "grey")
 olivine.loc[olivine["name"] == 'IEMN1KI02', "color"] = "blue"
 olivine.loc[olivine["name"] == 'IEFERJAIC', "color"] = "purple"
 olivine.loc[olivine["name"] == 'SC1-7', "color"] = "orange"

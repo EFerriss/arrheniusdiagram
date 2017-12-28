@@ -243,7 +243,7 @@ Padron-Navarta et al.,2014,100,3525,800,0.0001,no fO2 buffer,air,dehydration,,u,
 Padron-Navarta et al.,2014,100,3220,1000,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-12.66,100,no,
 Padron-Navarta et al.,2014,100,3220,900,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-13.7,100,no,
 Padron-Navarta et al.,2014,100,3220,800,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-14.29,100,no,
-Ferriss et al. ,in prep,86.2,bulk H,1200,,,,dehydration,IEMN1KI02,a,,bulk,-10.15,90,no,SIMS
+Ferriss et al. ,in prep,86.2,bulk H,1192,,,,dehydration,IEMN1KI02,a,,bulk,-10.15,90,no,SIMS
 Hauri,2002,86.7,bulk H,1275,,,,dehydration,,u,,bulk,-8.39794000867,0,no,
 Portnyagin et al.,2008,85.1,bulk H,1140,,,,dehydration,,u,,bulk,-11.3010299957,100,minimum,
 Chen et al.,2011,90.3,bulk H,1260,0.0001,QFM-5.5 to 7,,dehydration,,u,,bulk,-10.6989700043,100,no,no
@@ -287,13 +287,12 @@ Du Frane & Tyburczy,2012,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,u,0.25,bulk
 Du Frane & Tyburczy,2012,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,u,0.17,bulk,-11.7,,no,SIMS
 Du Frane & Tyburczy,2012,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,u,0.17,bulk,-11.7,,no,SIMS
 Du Frane & Tyburczy,2012,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,u,0.17,bulk,-12,,no,SIMS
-,,,,,,,,,,,,,,,,
-Novella et al. ,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,a,1,bulk,-12.41,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,b,1,bulk,-13.85,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,c,1,bulk,-13.1,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,a,0.25,bulk,-11.71,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,b,0.25,bulk,-13.22,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,c,0.25,bulk,-12.75,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,a,0.17,bulk,-10.94,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,b,0.17,bulk,-12.75,,no,NanoSIMS
-Novella et al. ,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,c,0.17,bulk,-11.9,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,a,1,bulk,-12.41,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,b,1,bulk,-13.85,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,750,2,Ni-NiO,,H-D exchange,PC25,c,1,bulk,-13.1,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,a,0.25,bulk,-11.71,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,b,0.25,bulk,-13.22,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,800,2,Ni-NiO,,H-D exchange,PC28,c,0.25,bulk,-12.75,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,a,0.17,bulk,-10.94,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,b,0.17,bulk,-12.75,,no,NanoSIMS
+Novella et al.,2017,89.1,bulk H,900,2,Ni-NiO,,H-D exchange,PC33,c,0.17,bulk,-11.9,,no,NanoSIMS

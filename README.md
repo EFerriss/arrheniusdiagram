@@ -1,2 +1,2 @@
 # arrheniusdiagram
-This is the code for [an intereactive, online Arrhenius diagram for H in nominally anhydrous minerals](https://arrheniusdiagram.herokuapp.com/). This repository visualizes data collected and analyzed in [this repository on olivine](https://github.com/EFerriss/olivine).
+This repository provides the code for [an intereactive, online Arrhenius diagram for H in olivine](https://arrheniusdiagram.herokuapp.com/) using data and analyses provided in [this repository](https://github.com/EFerriss/olivine) and in a paper that is currently in revision at Geochemica et Cosmochemica Acta.

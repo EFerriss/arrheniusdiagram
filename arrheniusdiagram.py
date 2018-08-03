@@ -5,7 +5,7 @@ Created on Fri Jun 16 16:42:23 2017
 @author: Elizabeth Ferriss
 
 Code for app on H diffusion in olivine at
-https://arrheniusdiagram.herokuapp.com/arrheniusdiagram
+https://arrheniusdiagram.herokuapp.com
 
 To run the python code on local computer:
 Command line: bokeh serve arreniusdiagram.py
@@ -92,19 +92,18 @@ widget_orient = CheckboxButtonGroup(
         labels=['|| a', '|| b', '|| c', 'not oriented'], active=[0, 1, 2, 3])
 widget_mech = CheckboxButtonGroup(
         labels=['bulk H', '[Si]', '[Ti]', '[tri]', '[Mg]'], active=[0])
-widget_fo = RangeSlider(title='Fo#', start=80, end=100, range=(80, 100))
+# widget_fo = RangeSlider(title='Fo#', start=80, end=100)
 widget_exper = CheckboxButtonGroup(labels=['hydration', 'dehydration', 
                                            'self-diffusion'], 
                                    active=[0, 1])
-widget_pp = RangeSlider(title='% "pp"', start=0, end=100, range=(0, 100))
+# widget_pp = RangeSlider(title='% "pp"', start=0, end=100)
 papersdf = olivine.groupby(['paper'])
 papers = [paper for paper, group in papersdf]
 widget_papers=CheckboxGroup(labels=papers, active=list(range(len(papers))))
 select_all = Button(label='select all papers', width=100)
 deselect_all = Button(label='deselect all papers', width=100)
 widget_maxmin = Button(label='show max/min values', width=100)
-widget_hours = RangeSlider(title='Duration (hours)', start=0, end=200, 
-                           range=(0, 200), step=1)
+# widget_hours = RangeSlider(title='Duration (hours)', start=0, end=200, step=1)
 
 
 # What data to plot
@@ -112,24 +111,24 @@ def select_data():
     selected = olivine
     orient_val = widget_orient.active
     mech_val = widget_mech.active
-    fomax_val = widget_fo.range[1]
-    fomin_val = widget_fo.range[0]
-    ppmax_val = widget_pp.range[1]
-    ppmin_val = widget_pp.range[0]
+    # fomax_val = widget_fo.end
+    # fomin_val = widget_fo.start
+    # ppmax_val = widget_pp.end
+    # ppmin_val = widget_pp.start
     exper_val = widget_exper.active
     papers_val = widget_papers.active
     maxmin_val = widget_maxmin.clicks
-    hrmin_val = widget_hours.range[0]
-    hrmax_val = widget_hours.range[1]
+    # hrmin_val = widget_hours.start
+    # hrmax_val = widget_hours.end
     
-    selected = selected[selected.Fo.values <= fomax_val]
-    selected = selected[selected.Fo.values >= fomin_val]
+    # selected = selected[selected.Fo.values <= fomax_val]
+    # selected = selected[selected.Fo.values >= fomin_val]
     
-    selected = selected[selected.percentpp.values <= ppmax_val]
-    selected = selected[selected.percentpp.values >= ppmin_val]
+    # selected = selected[selected.percentpp.values <= ppmax_val]
+    # selected = selected[selected.percentpp.values >= ppmin_val]
     
-    selected = selected[selected.hours.values <= hrmax_val]
-    selected = selected[selected.hours.values >= hrmin_val]
+    # selected = selected[selected.hours.values <= hrmax_val]
+    # selected = selected[selected.hours.values >= hrmin_val]
     
     orient_labels = ['a', 'b', 'c', 'not oriented']
     orient_list = [orient_labels[idx] for idx in orient_val]
@@ -182,13 +181,14 @@ def update():
 update()
 
 # set up callbacks
-controls = [widget_orient, widget_mech, widget_pp, widget_fo, widget_hours, \
+controls = [widget_orient, widget_mech, \
+			# widget_pp, widget_fo, widget_hours, 
             widget_exper, widget_maxmin, deselect_all, select_all, \
             widget_papers]
 for control in [widget_orient, widget_mech, widget_exper, widget_papers]:
     control.on_change('active', lambda attr, old, new: update())
-for control in [widget_fo, widget_pp, widget_hours]:
-    control.on_change('range', lambda attr, old, new: update())
+# for control in [widget_fo, widget_pp, widget_hours]:
+#     control.on_change('range', lambda attr, old, new: update())
 widget_maxmin.on_click(update)
 
 

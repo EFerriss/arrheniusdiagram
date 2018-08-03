@@ -158,6 +158,7 @@ Ferriss et al. ,submitted to GCA,86.2,3356,1000,0.0001,Ni-NiO-2.6,-13.1,dehydrat
 Ferriss et al. ,submitted to GCA,86.2,3356,1000,0.0001,Ni-NiO+1.9,-8.4,dehydration,IEFERJAIC,a,8,[tri],-11.8,,no,polarized FTIR E || a
 Ferriss et al. ,submitted to GCA,86.2,3356,1000,0.0001,Ni-NiO+1.9,-8.4,dehydration,IEFERJAIC,b,8,[tri],-12,,no,polarized FTIR E || a
 Ferriss et al. ,submitted to GCA,86.2,3356,1000,0.0001,Ni-NiO+1.9,-8.4,dehydration,IEFERJAIC,c,8,[tri],-11.8,,no,polarized FTIR E || a
+Ferriss et al. ,submitted to GCA,84.8,bulk H,1192,,,,dehydration,IEMN1KI02,a,,bulk,-10.15,90,no,SIMS
 Mackwell & Kohlstedt,1990,91,bulk H,800,0.3,Fe-FeO,-18.9,hydration,SC14#1,a,1,bulk,-10.301029995664,0,no,unpolarized FTIR
 Mackwell & Kohlstedt,1990,91,bulk H,800,0.3,Fe-FeO,-18.9,hydration,SC14#1,b,1,bulk,-11.5228787452803,0,maximum,unpolarized FTIR
 Mackwell & Kohlstedt,1990,91,bulk H,800,0.3,Fe-FeO,-18.9,hydration,SC14#7,a,1,bulk,-10.698970004336,0,no,unpolarized FTIR
@@ -243,7 +244,6 @@ Padron-Navarta et al.,2014,100,3525,800,0.0001,no fO2 buffer,air,dehydration,,u,
 Padron-Navarta et al.,2014,100,3220,1000,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-12.66,100,no,
 Padron-Navarta et al.,2014,100,3220,900,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-13.7,100,no,
 Padron-Navarta et al.,2014,100,3220,800,0.0001,no fO2 buffer,air,dehydration,,u,,[Mg],-14.29,100,no,
-Ferriss et al. ,submitted to GCA,86.2,bulk H,1192,,,,dehydration,IEMN1KI02,a,,bulk,-10.15,90,no,SIMS
 Hauri,2002,86.7,bulk H,1275,,,,dehydration,,u,,bulk,-8.39794000867,0,no,
 Portnyagin et al.,2008,85.1,bulk H,1140,,,,dehydration,,u,,bulk,-11.3010299957,100,minimum,
 Chen et al.,2011,90.3,bulk H,1260,0.0001,QFM-5.5 to 7,,dehydration,,u,,bulk,-10.6989700043,100,no,no
